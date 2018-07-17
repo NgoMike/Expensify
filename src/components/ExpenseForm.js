@@ -5,12 +5,16 @@ import 'react-dates/initialize'; // req. for react-dates
 import 'react-dates/lib/css/_datepicker.css'; // req. for react-dates
 
 class ExpenseForm extends React.Component {
-  state = {
-    description: '',
-    note: '',
-    amount: '',
-    createdAt: moment(),
-    calenderFocused: false
+  constructor(props) {
+    super(props); 
+    this.state = {
+      description: props.expense ? props.expense.description : '',
+      note: props.expense ? props.expense.note : '',
+      amount: props.expense ? (props.expense.amount / 100).toString() : '',
+      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+      calenderFocused: false,
+      error: false
+    };
   };
 
   onDescriptionChange = (e) => {
@@ -26,23 +30,43 @@ class ExpenseForm extends React.Component {
   onAmountChange = (e) => {
     const amount = e.target.value;
 
-    if (amount.match(/^\d*(\.\d{0,2})?$/)) {  // regex to allow numbers only and up to 2 decimals
+    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {  // regex to allow numbers only and up to 2 decimals
       this.setState(() => ({ amount }));  
     }
   };
 
   onDateChange = (createdAt) => {
-    this.setState(() => ({ createdAt }));
+    if (createdAt) {
+      this.setState(() => ({ createdAt }));
+    }
   };
 
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ calenderFocused: focused }));
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!this.state.description || !this.state.amount) {
+      // set error state
+      this.setState(() => ({ error: true }));
+    } else {
+      this.setState(() => ({ error: false }));
+      this.props.onSubmit({
+        description: this.state.description,
+        amount: parseFloat(this.state.amount, 10) * 100,  // parse str -> num with decimals, base 10
+        createdAt: this.state.createdAt.valueOf(), // valueOf: moment method that parse number to millisecs
+        note: this.state.note
+      });
+    }
+  };
+
   render() {
     return (
       <div>
-        <form>
+        <div>{this.state.error === true && 'Please provide description and amount.'}</div>
+        <form onSubmit={this.onSubmit}>
           <input 
             type="text"
             placeholder="Description"
