@@ -7,7 +7,9 @@
   "scripts": {
     "serve": "live-server public/",
     "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "test": "jest --watch",
+    "jest": "jest --coverage"
   },
   "dependencies": {
     "babel-cli": "6.24.1",
@@ -18,12 +20,13 @@
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
     "css-loader": "0.28.4",
+    "jest": "^23.4.1",
     "live-server": "^1.2.0",
     "moment": "^2.22.2",
     "node-sass": "^4.9.2",
     "normalize.css": "7.0.0",
     "react": "15.6.1",
-    "react-addons-shallow-compare": "^15.6.2", 
+    "react-addons-shallow-compare": "^15.6.2",
     "react-dates": "^17.1.0",
     "react-dom": "15.6.1",
     "react-modal": "2.2.2",
