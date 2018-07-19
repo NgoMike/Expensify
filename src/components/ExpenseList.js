@@ -6,11 +6,14 @@ import expenseSelector from '../selectors/expenseSelector';
 // stateless component
 const ExpenseList = (props) => (
   <div>
-    <h1>Expense List</h1>
     {
-      props.expenses.map((expense) => {
-        return <ExpenseListItem key={expense.id} {...expense} /> // expense={expense}
-      })
+      props.expenses.length === 0 ? (  
+        <p>No Expenses</p>
+      ) : ( 
+          props.expenses.map((expense) => {
+            return <ExpenseListItem key={expense.id} {...expense} /> // expense={expense}
+          }) 
+        )
     }
   </div>
 );
@@ -24,6 +27,7 @@ const mapStateToProps = (state) => {
 
 // connects takes in fn and choose what is needed from store. invokes the component wrapped
 export default connect(mapStateToProps)(ExpenseList);
+export { ExpenseList }; // unconnected for testing
 
 // const ConnectedExpenseList = connect((state) => {
 //   return {
