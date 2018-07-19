@@ -1,8 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates'; // calender picker tool
-import 'react-dates/initialize'; // req. for react-dates
-import 'react-dates/lib/css/_datepicker.css'; // req. for react-dates
 
 class ExpenseForm extends React.Component {
   constructor(props) {
