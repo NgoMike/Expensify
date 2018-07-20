@@ -1,4 +1,7 @@
 bundle.js
+bundle.js.map
+bundle_styles.css
+bundle_styles.css.map
 coverage
 node_modules
 package-lock.json
