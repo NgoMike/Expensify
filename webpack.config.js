@@ -8,7 +8,7 @@ module.exports = (env) => { // webpack can export object or fn with env
   return {
     entry: './src/app.js',
     output: {
-      path: path.join(__dirname, 'public'),
+      path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js'
     },
     module: {
@@ -42,7 +42,8 @@ module.exports = (env) => { // webpack can export object or fn with env
     devtool: isProduction ? 'source-map' : 'inline-source-map',  // check if in prod. If yes: minify bundle with just source map
     devServer: {
       contentBase: path.join(__dirname, 'public'),
-      historyApiFallback: true                      // always fallback to serving html for client side rendering of routes
+      historyApiFallback: true,
+      publicPath: '/dist/'                      // always fallback to serving html for client side rendering of routes
     }
   };
 };
