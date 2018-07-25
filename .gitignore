@@ -1,8 +1,10 @@
 coverage
-firebase
+firebaseKey
 node_modules
 package-lock.json
 playground
 public/dist/
 yarn.lock
 __snapshots__
+.env.test
+.env.development
