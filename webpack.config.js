@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+// cross-env allows switching env scripts
 process.env.NODE_ENV = process.env.NODE_ENV || "development"; // heroku sets node_env to production as default
 
 if (process.env.NODE_ENV === "test") {
