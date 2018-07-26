@@ -6,7 +6,8 @@ import {
   editExpense,
   removeExpense,
   setExpenses,
-  startSetExpenses
+  startSetExpenses,
+  startRemoveExpense
 } from "../../actions/expensesActions";
 import expensesExampleData from "../fixtures/expensesExampleData";
 import database from "../../firebase/firebase";
@@ -46,6 +47,28 @@ test("should set id to undefined for remove expense action object", () => {
       id: undefined
     }
   });
+});
+
+test("should remove expense from firebase", done => {
+  const store = createMockStore({});
+  const expenses = expensesExampleData;
+  const id = expenses[2].id;
+  store
+    .dispatch(startRemoveExpense({ id }))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: "REMOVE_EXPENSE",
+        expense: {
+          id: id
+        }
+      });
+      return database.ref(`expenses/${id}`).once("value");
+    })
+    .then(snapshot => {
+      expect(snapshot.val()).toBeFalsy();
+      done();
+    });
 });
 
 test("should setup edit expense action object", () => {
