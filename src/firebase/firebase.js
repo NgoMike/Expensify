@@ -12,5 +12,6 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider(); // google auth with firebase, also enabled in dashboard
 
-export { firebase, database as default };
+export { firebase, googleAuthProvider, database as default };
