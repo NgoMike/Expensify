@@ -17,7 +17,7 @@ module.exports = env => {
   const CSSExtract = new ExtractTextPlugin("bundle_styles.css");
 
   return {
-    entry: "./src/app.js",
+    entry: ["babel-polyfill", "./src/app.js"], // babel-polyfill allows cross browser support
     output: {
       path: path.join(__dirname, "public", "dist"),
       filename: "bundle.js"
